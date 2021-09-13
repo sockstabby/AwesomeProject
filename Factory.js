@@ -6,21 +6,31 @@ import PriceWidget from './widgets/priceWidget.js';
 import AreaChartWidget from './widgets/areaChart.js';
 
 export const WIDGETS = {
-	PRICE:1,
-	PRICE2:2,
+	PRICE: 1,
+	PRICE2: 2,
 	BAR: 3,
 	PIE: 4,
-	LINE: 5,	
+	LINE: 5,
 	AREA: 6
 };
 
-const widgets = {
-	[WIDGETS.PRICE]: <PriceWidget color='red' text='Western Hub - RTLMP' price='35.84' time='11:55'/>,
-	[WIDGETS.PRICE2]: <PriceWidget color='green' text='Western Hub - DALMP' price='43.63' time='11:55' />,
-	[WIDGETS.BAR]: <BarChartWidget />,
-	[WIDGETS.PIE]: <PieChartWidget />,
-	[WIDGETS.LINE]: <LineChartWidget />,
-	[WIDGETS.AREA]: <AreaChartWidget />
+const constructWidget = (id, props = {}) => {
+	switch (id) {
+		case WIDGETS.BAR:
+			return <BarChartWidget key={props.key} />;
+		case WIDGETS.PIE:
+			return <PieChartWidget key={props.key} />;
+		case WIDGETS.LINE:
+			return <LineChartWidget key={props.key} />;
+		case WIDGETS.PRICE:
+			return <PriceWidget color={props.color} text={props.text} price={props.price} />;
+		case WIDGETS.AREA:
+			return <AreaChartWidget />;
+	}
+	return null;
 };
 
-export const createWidget = id => widgets[id];
+export const createWidget = (id, index, props = {}) => {
+	const newProps = { ...props, key: '' + index };
+	return constructWidget(id, newProps);
+};

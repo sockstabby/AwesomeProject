@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Button, Text, View, SectionList, StyleSheet, ScrollView, Stack } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
@@ -12,7 +11,7 @@ import Theme from './Settings/theme.js'
 function HomeScreen({ navigation }) {
 	const [{ theme, widgets }, dispatch] = useStateValue();
 	const activeWidgets = widgets.filter(i => i.enabled);
-	const widgys = activeWidgets.map(i => createWidget(i.type));
+	const widgys = activeWidgets.map((item, index) => createWidget(item.type, index, item.props));
 
 	return (
 		<View
@@ -51,12 +50,20 @@ export default function App() {
 	const initialState = {
 		theme: { primary: 'yellow' },
 		widgets: [
-			{ type: WIDGETS.PRICE, enabled: true },
-			{ type: WIDGETS.PRICE2, enabled: true },
-			{ type: WIDGETS.BAR, enabled: true },
-			{ type: WIDGETS.PIE, enabled: true },
-			{ type: WIDGETS.LINE, enabled: true },
-			{ type: WIDGETS.AREA, enabled: true }
+			{
+				type: WIDGETS.PRICE,
+				enabled: true,
+				props: { color: 'red', text: 'Western Hub - RTLMP', price: '35.84' }
+			},
+			{
+				type: WIDGETS.PRICE,
+				enabled: true,
+				props: { color: 'green', text: 'Western Hub - DALMP', price: '76.84' }
+			},
+			{ type: WIDGETS.BAR, enabled: true, props: {} },
+			{ type: WIDGETS.PIE, enabled: true, props: {} },
+			{ type: WIDGETS.LINE, enabled: true, props: {} },
+			{ type: WIDGETS.AREA, enabled: true, props: {} }
 		]
 	};
 
