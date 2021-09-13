@@ -53,12 +53,12 @@ export default function App() {
 			{
 				type: WIDGETS.PRICE,
 				enabled: true,
-				props: { color: 'red', text: 'Western Hub - RTLMP', price: '35.84' }
+				props: { color: 'red', text: 'Western Hub - RTLMP', price: '35.84' , time:'11:55' }
 			},
 			{
 				type: WIDGETS.PRICE,
 				enabled: true,
-				props: { color: 'green', text: 'Western Hub - DALMP', price: '76.84' }
+				props: { color: 'green', text: 'Western Hub - DALMP', price: '76.84', time:'11:55'}
 			},
 			{ type: WIDGETS.BAR, enabled: true, props: {} },
 			{ type: WIDGETS.PIE, enabled: true, props: {} },
