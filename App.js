@@ -9,6 +9,7 @@ import LineChartWidget from './widgets/lineChart.js';
 import PieChartWidget from './widgets/pieChart.js';
 import BarChartWidget from './widgets/barChart.js';
 import PriceWidget from './widgets/priceWidget.js';
+import AreaChartWidget from './widgets/areaChart.js';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -58,11 +59,12 @@ function HomeScreen({ navigation }) {
 				flexDirection: 'row'
 			}}
 			>
-			<PriceWidget color='red' text='Western Hub - RTLMP' price='35.84'/>
-			<PriceWidget color='green' text='Western Hub - DALMP' price='43.63'/>
+			<PriceWidget color='red' text='Western Hub - RTLMP' price='35.84' time='11:55' widgetID='1'/>
+			<PriceWidget color='green' text='Western Hub - DALMP' price='43.63' time='11:55' widgetID='2'/>
 		    <PieChartWidget />
 			<LineChartWidget />
 			<BarChartWidget />
+			<AreaChartWidget/>
 			</View>
 	);
 }

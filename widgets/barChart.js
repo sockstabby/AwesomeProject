@@ -6,10 +6,10 @@ import * as scale from 'd3-scale';
 const styles = StyleSheet.create({
 	box: {
 		width: '48%',
-		height: 200,
+		height: 170,
 		padding: 15,
-		borderColor: 'red',
-		borderWidth: 1,
+		borderColor: 'black',
+		borderWidth: 2,
 		margin: 'auto'
 	}
 });
