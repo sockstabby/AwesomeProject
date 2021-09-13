@@ -15,14 +15,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createWidget, WIDGETS } from './Factory.js';
 
 function HomeScreen({ navigation }) {
-	const [{ theme }, dispatch] = useStateValue();
-
-	const widgets = [
-		createWidget(WIDGETS.BAR),
-		createWidget(WIDGETS.PRICE),
-		createWidget(WIDGETS.LINE),
-		createWidget(WIDGETS.PIE)
-	];
+	const [{ theme, widgets }, dispatch] = useStateValue();
+	const activeWidgets = widgets.filter(i => i.enabled);
+	const widgys = activeWidgets.map(i => createWidget(i.type));
 
 	return (
 		<View
@@ -36,7 +31,7 @@ function HomeScreen({ navigation }) {
 				flexWrap: 'wrap',
 				flexDirection: 'row'
 			}}
-			children={widgets}
+			children={widgys}
 		></View>
 	);
 }
@@ -62,6 +57,7 @@ export default function App() {
 	const initialState = {
 		theme: { primary: 'yellow' },
 		widgets: [
+			{ type: WIDGETS.PRICE, enabled: true },
 			{ type: WIDGETS.BAR, enabled: true },
 			{ type: WIDGETS.PIE, enabled: true },
 			{ type: WIDGETS.LINE, enabled: true }
