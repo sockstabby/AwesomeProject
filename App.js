@@ -1,16 +1,9 @@
 import * as React from 'react';
 import { Button, Text, View, SectionList, StyleSheet, ScrollView, Stack } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
-import LineChartWidget from './widgets/lineChart.js';
-import PieChartWidget from './widgets/pieChart.js';
-import BarChartWidget from './widgets/barChart.js';
-import PriceWidget from './widgets/priceWidget.js';
-import Svg, { Circle, Rect } from 'react-native-svg';
-import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createWidget, WIDGETS } from './Factory.js';
 
@@ -65,11 +58,12 @@ export default function App() {
 			{
 				type: WIDGETS.PRICE,
 				enabled: true,
-				props: { color: 'green', text: 'Western Hub - RTLMP', price: '76.84' }
+				props: { color: 'green', text: 'Western Hub - DALMP', price: '76.84' }
 			},
 			{ type: WIDGETS.BAR, enabled: true, props: {} },
 			{ type: WIDGETS.PIE, enabled: true, props: {} },
-			{ type: WIDGETS.LINE, enabled: true, props: {} }
+			{ type: WIDGETS.LINE, enabled: true, props: {} },
+			{ type: WIDGETS.AREA, enabled: true, props: {} }
 		]
 	};
 
