@@ -8,6 +8,7 @@ import { useStateValue } from './state.js';
 import LineChartWidget from './widgets/lineChart.js';
 import PieChartWidget from './widgets/pieChart.js';
 import BarChartWidget from './widgets/barChart.js';
+import PriceWidget from './widgets/priceWidget.js';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -99,9 +100,7 @@ function HomeScreen({ navigation }) {
 		    <PieChartWidget />
 			<LineChartWidget />
 			<BarChartWidget />
-				<View style={{flex:1},[styles.box]}>
-				<Text>Hello World!</Text>
-				</View>
+			<PriceWidget />
 			</View>
 	);
 }
@@ -163,35 +162,26 @@ export default function App() {
 	};
 	return (
 		<StateProvider initialState={initialState} reducer={reducer}>
-			{/* <NavigationContainer>
-				<Tab.Navigator screenOptions={{ headerShown: false }}>
-					<Tab.Screen name="Home" component={HomeStackScreen} />
-					<Tab.Screen name="Settings" component={SettingsStackScreen} />
-				</Tab.Navigator>
-			</NavigationContainer> */}
 			 <NavigationContainer>
       		<Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ color, size }) => {
             let iconName;
 
             if (route.name === 'Home') {
-              iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
+              iconName = 'ios-information-circle'  ;
             } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
+              iconName =  'ios-list-box';
             }
 
-            // You can return any component that you like here!
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Home" component={HomeStackScreen} />
+        <Tab.Screen name="Settings" component={SettingsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
 		</StateProvider>
