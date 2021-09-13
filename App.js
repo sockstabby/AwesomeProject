@@ -17,7 +17,7 @@ import { createWidget, WIDGETS } from './Factory.js';
 function HomeScreen({ navigation }) {
 	const [{ theme, widgets }, dispatch] = useStateValue();
 	const activeWidgets = widgets.filter(i => i.enabled);
-	const widgys = activeWidgets.map(i => createWidget(i.type));
+	const widgys = activeWidgets.map((item, index) => createWidget(item.type, index, item.props));
 
 	return (
 		<View
@@ -57,10 +57,19 @@ export default function App() {
 	const initialState = {
 		theme: { primary: 'yellow' },
 		widgets: [
-			{ type: WIDGETS.PRICE, enabled: true },
-			{ type: WIDGETS.BAR, enabled: true },
-			{ type: WIDGETS.PIE, enabled: true },
-			{ type: WIDGETS.LINE, enabled: true }
+			{
+				type: WIDGETS.PRICE,
+				enabled: true,
+				props: { color: 'red', text: 'Western Hub - RTLMP', price: '35.84' }
+			},
+			{
+				type: WIDGETS.PRICE,
+				enabled: true,
+				props: { color: 'green', text: 'Western Hub - RTLMP', price: '76.84' }
+			},
+			{ type: WIDGETS.BAR, enabled: true, props: {} },
+			{ type: WIDGETS.PIE, enabled: true, props: {} },
+			{ type: WIDGETS.LINE, enabled: true, props: {} }
 		]
 	};
 

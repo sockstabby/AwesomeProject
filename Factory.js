@@ -11,6 +11,20 @@ export const WIDGETS = {
 	PRICE: 4
 };
 
+const constructWidget = (id, props = {}) => {
+	switch (id) {
+		case WIDGETS.BAR:
+			return <BarChartWidget key={props.key} />;
+		case WIDGETS.PIE:
+			return <PieChartWidget key={props.key} />;
+		case WIDGETS.LINE:
+			return <LineChartWidget key={props.key} />;
+		case WIDGETS.PRICE:
+			return <PriceWidget color={props.color} text={props.text} price={props.price} />;
+	}
+	return null;
+};
+
 const widgets = {
 	[WIDGETS.BAR]: <BarChartWidget />,
 	[WIDGETS.PIE]: <PieChartWidget />,
@@ -18,4 +32,7 @@ const widgets = {
 	[WIDGETS.PRICE]: <PriceWidget color="red" text="Western Hub - RTLMP" price="35.84" />
 };
 
-export const createWidget = id => widgets[id];
+export const createWidget = (id, index, props = {}) => {
+	const newProps = { ...props, key: '' + index };
+	return constructWidget(id, newProps);
+};
