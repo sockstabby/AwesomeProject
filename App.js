@@ -12,37 +12,16 @@ import PriceWidget from './widgets/priceWidget.js';
 import Svg, { Circle, Rect } from 'react-native-svg';
 import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createWidget, WIDGETS } from './Factory.js';
 
 function HomeScreen({ navigation }) {
 	const [{ theme }, dispatch] = useStateValue();
-	const data = [50, 10, 40, 95, 85];
-	const pieData = [
-		{
-			key: 1,
-			value: 50,
-			svg: { fill: '#600080' },
-			arc: { outerRadius: '130%', cornerRadius: 10 }
-		},
-		{
-			key: 2,
-			value: 50,
-			svg: { fill: '#9900cc' }
-		},
-		{
-			key: 3,
-			value: 40,
-			svg: { fill: '#c61aff' }
-		},
-		{
-			key: 4,
-			value: 95,
-			svg: { fill: '#d966ff' }
-		},
-		{
-			key: 5,
-			value: 35,
-			svg: { fill: '#ecb3ff' }
-		}
+
+	const widgets = [
+		createWidget(WIDGETS.BAR),
+		createWidget(WIDGETS.PRICE),
+		createWidget(WIDGETS.LINE),
+		createWidget(WIDGETS.PIE)
 	];
 
 	return (
@@ -57,13 +36,8 @@ function HomeScreen({ navigation }) {
 				flexWrap: 'wrap',
 				flexDirection: 'row'
 			}}
-		>
-			<PriceWidget color="red" text="Western Hub - RTLMP" price="35.84" />
-			<PriceWidget color="green" text="Western Hub - DALMP" price="43.63" />
-			<PieChartWidget />
-			<LineChartWidget />
-			<BarChartWidget />
-		</View>
+			children={widgets}
+		></View>
 	);
 }
 
