@@ -9,7 +9,7 @@ import LineChartWidget from './widgets/lineChart.js';
 import PieChartWidget from './widgets/pieChart.js';
 import BarChartWidget from './widgets/barChart.js';
 import Svg, { Circle, Rect } from 'react-native-svg';
-import { BarChart, Grid } from 'react-native-svg-charts';
+import { createWidget, WIDGETS } from './Factory.js';
 
 const styles = StyleSheet.create({
 	container: {
@@ -41,6 +41,10 @@ const styles = StyleSheet.create({
 });
 
 function DetailsScreen() {
+	// iterate the state ance create an array of widgets
+	const Widget = createWidget(WIDGETS.BAR);
+	const widgets = [Widget];
+
 	return (
 		<View
 			style={{
@@ -52,11 +56,8 @@ function DetailsScreen() {
 				flexWrap: 'wrap',
 				flexDirection: 'row'
 			}}
-		>
-			<PieChartWidget />
-			<LineChartWidget />
-			<BarChartWidget />
-		</View>
+			children={widgets}
+		></View>
 	);
 }
 
@@ -125,7 +126,12 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 	const initialState = {
-		theme: { primary: 'yellow' }
+		theme: { primary: 'yellow' },
+		widgets: [
+			{ type: WIDGETS.BAR, enabled: true },
+			{ type: WIDGETS.PIE, enabled: true },
+			{ type: WIDGETS.LINE, enabled: true }
+		]
 	};
 
 	const reducer = (state, action) => {
