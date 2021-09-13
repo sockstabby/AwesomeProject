@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Switch, StyleSheet } from "react-native";
+import { useStateValue } from '../state.js';
 
 const styles = StyleSheet.create({
     container: {
@@ -12,18 +13,17 @@ const styles = StyleSheet.create({
   });
 
 const Theme = (props) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [{ darkThemeEnabled}, dispatch] = useStateValue();
+  const toggleSwitch = () => dispatch({ type: 'darkThemeEnabledChanged', value: !darkThemeEnabled });
 
   return (
     <View style={styles.container}>
       <Switch
-        onValueChange = {props.id}
         trackColor={{ false: "#767577", true: "#81b0ff" }}
-        thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+        thumbColor={darkThemeEnabled ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
-        value={isEnabled}
+        value={darkThemeEnabled}
       />
     </View>
   );

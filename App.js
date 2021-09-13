@@ -9,7 +9,7 @@ import { createWidget, WIDGETS } from './Factory.js';
 import Theme from './Settings/theme.js'
 
 function HomeScreen({ navigation }) {
-	const [{ theme, widgets }, dispatch] = useStateValue();
+	const [{ darkThemeEnabled, widgets }, dispatch] = useStateValue();
 	const activeWidgets = widgets.filter(i => i.enabled);
 	const widgys = activeWidgets.map((item, index) => createWidget(item.type, index, item.props));
 
@@ -17,7 +17,7 @@ function HomeScreen({ navigation }) {
 		<View
 			style={{
 				alignSelf: 'center',
-				backgroundColor: 'aliceblue',
+				backgroundColor: darkThemeEnabled === true ? "#3e3e3e" : 'aliceblue',
 				height: '100%',
 				width: '100%',
 				padding: 15,
@@ -31,11 +31,12 @@ function HomeScreen({ navigation }) {
 }
 
 function SettingsScreen({ navigation }) {
-	const [{ theme }, dispatch] = useStateValue();
-	console.log('theme', theme);
+	const [{ darkThemeEnabled }, dispatch] = useStateValue();
 	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Text>Dark Theme</Text>
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: darkThemeEnabled === true ? "#3e3e3e" : 'aliceblue', }}>
+			<Text style={{ color: darkThemeEnabled === true ? 'white' : 'black', fontSize: 18, alignSelf:'center' , paddingRight: '5%'}}>
+          dark theme
+        </Text>
 			<Theme>
 				onPress={() => {
 					dispatch({ type: 'theme', value: { primary: 'blue' } });
@@ -48,7 +49,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 	const initialState = {
-		theme: { primary: 'yellow' },
+		darkThemeEnabled: false,
 		widgets: [
 			{
 				type: WIDGETS.PRICE,
@@ -70,10 +71,10 @@ export default function App() {
 	const reducer = (state, action) => {
 		console.log(action);
 		switch (action.type) {
-			case 'changeTheme':
+			case 'darkThemeEnabledChanged':
 				return {
 					...state,
-					theme: action.value
+					darkThemeEnabled: action.value
 				};
 
 			default:
