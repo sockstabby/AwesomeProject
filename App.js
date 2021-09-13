@@ -5,67 +5,42 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
-import LineChartWidget from './widgets/lineChart.js';
-import PieChartWidget from './widgets/pieChart.js';
-import BarChartWidget from './widgets/barChart.js';
-import PriceWidget from './widgets/priceWidget.js';
-import AreaChartWidget from './widgets/areaChart.js';
-import Svg, { Circle, Rect } from 'react-native-svg';
-import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { createWidget, WIDGETS } from './Factory.js';
 
 function HomeScreen({ navigation }) {
 	const [{ theme }, dispatch] = useStateValue();
-	const data = [50, 10, 40, 95, 85];
-	const pieData = [
-			{
-				key: 1,
-				value: 50,
-				svg: { fill: '#600080' },
-				arc: { outerRadius: '130%', cornerRadius: 10 }
-			},
-			{
-				key: 2,
-				value: 50,
-				svg: { fill: '#9900cc' }
-			},
-			{
-				key: 3,
-				value: 40,
-				svg: { fill: '#c61aff' }
-			},
-			{
-				key: 4,
-				value: 95,
-				svg: { fill: '#d966ff' }
-			},
-			{
-				key: 5,
-				value: 35,
-				svg: { fill: '#ecb3ff' }
-			}
-		];
-	
-		return (
-			<View
+
+	const widgets = [
+		createWidget(WIDGETS.PRICE),
+		createWidget(WIDGETS.PRICE2),
+		createWidget(WIDGETS.BAR),
+		createWidget(WIDGETS.LINE),
+		createWidget(WIDGETS.PIE),
+		createWidget(WIDGETS.AREA)
+	];
+
+	return (
+		<View
 			style={{
 				alignSelf: 'center',
 				backgroundColor: 'aliceblue',
 				height: '100%',
-			    width: '100%',
+				width: '100%',
 				padding: 15,
-				margin:'auto',
+				margin: 'auto',
 				flexWrap: 'wrap',
 				flexDirection: 'row'
 			}}
 			>
-			<PriceWidget color='red' text='Western Hub - RTLMP' price='35.84' time='11:55' widgetID='1'/>
+			{/* <PriceWidget color='red' text='Western Hub - RTLMP' price='35.84' time='11:55' widgetID='1'/>
 			<PriceWidget color='green' text='Western Hub - DALMP' price='43.63' time='11:55' widgetID='2'/>
 		    <PieChartWidget />
 			<LineChartWidget />
 			<BarChartWidget />
-			<AreaChartWidget/>
-			</View>
+			<AreaChartWidget/> */}
+			children={widgets}
+		</View>
 	);
 }
 
@@ -88,7 +63,12 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 	const initialState = {
-		theme: { primary: 'yellow' }
+		theme: { primary: 'yellow' },
+		widgets: [
+			{ type: WIDGETS.BAR, enabled: true },
+			{ type: WIDGETS.PIE, enabled: true },
+			{ type: WIDGETS.LINE, enabled: true }
+		]
 	};
 
 	const reducer = (state, action) => {
@@ -106,28 +86,28 @@ export default function App() {
 	};
 	return (
 		<StateProvider initialState={initialState} reducer={reducer}>
-			 <NavigationContainer>
-      		<Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
+			<NavigationContainer>
+				<Tab.Navigator
+					screenOptions={({ route }) => ({
+						tabBarIcon: ({ color, size }) => {
+							let iconName;
 
-            if (route.name === 'Home') {
-              iconName = 'ios-information-circle'  ;
-            } else if (route.name === 'Settings') {
-              iconName =  'list';
-            }
+							if (route.name === 'Home') {
+								iconName = 'ios-information-circle';
+							} else if (route.name === 'Settings') {
+								iconName = 'list';
+							}
 
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+							return <Ionicons name={iconName} size={size} color={color} />;
+						},
+						tabBarActiveTintColor: 'tomato',
+						tabBarInactiveTintColor: 'gray'
+					})}
+				>
+					<Tab.Screen name="Home" component={HomeScreen} />
+					<Tab.Screen name="Settings" component={SettingsScreen} />
+				</Tab.Navigator>
+			</NavigationContainer>
 		</StateProvider>
 	);
 }
