@@ -5,12 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
-import LineChartWidget from './widgets/lineChart.js';
-import PieChartWidget from './widgets/pieChart.js';
-import BarChartWidget from './widgets/barChart.js';
-import PriceWidget from './widgets/priceWidget.js';
-import Svg, { Circle, Rect } from 'react-native-svg';
-import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createWidget, WIDGETS } from './Factory.js';
 
@@ -58,9 +52,11 @@ export default function App() {
 		theme: { primary: 'yellow' },
 		widgets: [
 			{ type: WIDGETS.PRICE, enabled: true },
+			{ type: WIDGETS.PRICE2, enabled: true },
 			{ type: WIDGETS.BAR, enabled: true },
 			{ type: WIDGETS.PIE, enabled: true },
-			{ type: WIDGETS.LINE, enabled: true }
+			{ type: WIDGETS.LINE, enabled: true },
+			{ type: WIDGETS.AREA, enabled: true }
 		]
 	};
 
