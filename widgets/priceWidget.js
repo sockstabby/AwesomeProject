@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { View, StyleSheet,Text ,TouchableOpacity} from 'react-native';
+import { View, StyleSheet,Text} from 'react-native';
 import { Grid, LineChart } from 'react-native-svg-charts';
 import * as scale from 'd3-scale';
-import { useStateValue } from '../state.js';
 
 const styles = StyleSheet.create({
 	box: {
@@ -20,9 +19,6 @@ const styles = StyleSheet.create({
 const PriceWidget = (props) => {
 	return (
 		<View style={[styles.box]}>
-        {/* <TouchableOpacity onPress={() => {
-					dispatch({ type: 'changeTheme', value: { primary: 'blue' } });
-				}}> */}
         <Text style={{ color: 'black' , fontSize: 20 , fontWeight: 'bold', alignSelf:'center' , paddingTop: '5%'}}>
           {props.text}
         </Text>
@@ -32,7 +28,6 @@ const PriceWidget = (props) => {
         <Text style={{ color:'black' , fontSize: 12 , fontWeight: 'bold', alignSelf:'flex-end' , paddingTop: '30%'}}>
           {props.time}
         </Text>
-        {/* </TouchableOpacity> */}
 		</View>
 
 	);

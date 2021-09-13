@@ -9,16 +9,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createWidget, WIDGETS } from './Factory.js';
 
 function HomeScreen({ navigation }) {
-	const [{ theme }, dispatch] = useStateValue();
-
-	const widgets = [
-		createWidget(WIDGETS.PRICE),
-		createWidget(WIDGETS.PRICE2),
-		createWidget(WIDGETS.BAR),
-		createWidget(WIDGETS.LINE),
-		createWidget(WIDGETS.PIE),
-		createWidget(WIDGETS.AREA)
-	];
+	const [{ theme, widgets }, dispatch] = useStateValue();
+	const activeWidgets = widgets.filter(i => i.enabled);
+	const widgys = activeWidgets.map(i => createWidget(i.type));
 
 	return (
 		<View
@@ -32,15 +25,8 @@ function HomeScreen({ navigation }) {
 				flexWrap: 'wrap',
 				flexDirection: 'row'
 			}}
-			>
-			{/* <PriceWidget color='red' text='Western Hub - RTLMP' price='35.84' time='11:55' widgetID='1'/>
-			<PriceWidget color='green' text='Western Hub - DALMP' price='43.63' time='11:55' widgetID='2'/>
-		    <PieChartWidget />
-			<LineChartWidget />
-			<BarChartWidget />
-			<AreaChartWidget/> */}
-			children={widgets}
-		</View>
+			children={widgys}
+		></View>
 	);
 }
 
@@ -65,9 +51,12 @@ export default function App() {
 	const initialState = {
 		theme: { primary: 'yellow' },
 		widgets: [
+			{ type: WIDGETS.PRICE, enabled: true },
+			{ type: WIDGETS.PRICE2, enabled: true },
 			{ type: WIDGETS.BAR, enabled: true },
 			{ type: WIDGETS.PIE, enabled: true },
-			{ type: WIDGETS.LINE, enabled: true }
+			{ type: WIDGETS.LINE, enabled: true },
+			{ type: WIDGETS.AREA, enabled: true }
 		]
 	};
 
