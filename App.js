@@ -13,35 +13,6 @@ import Svg, { Circle, Rect } from 'react-native-svg';
 import { BarChart, Grid } from 'react-native-svg-charts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		paddingTop: 22
-	},
-	box: {
-		width: '48%',
-		height: 200,
-		padding: 15,
-		borderColor: 'red',
-		borderWidth: 1,
-		margin: 1
-	},
-	sectionHeader: {
-		paddingTop: 2,
-		paddingLeft: 10,
-		paddingRight: 10,
-		paddingBottom: 2,
-		fontSize: 14,
-		fontWeight: 'bold',
-		backgroundColor: 'rgba(247,247,247,1.0)'
-	},
-	item: {
-		padding: 10,
-		fontSize: 18,
-		height: 44
-	}
-});
-
 function HomeScreen({ navigation }) {
 	const [{ theme }, dispatch] = useStateValue();
 	const data = [50, 10, 40, 95, 85];
@@ -74,33 +45,24 @@ function HomeScreen({ navigation }) {
 			}
 		];
 	
-		const lineData = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
-	
-		const Gradient = () => (
-			<Defs key={'gradient'}>
-				<LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
-					<Stop offset={'0%'} stopColor={'rgb(134, 65, 244)'} />
-					<Stop offset={'100%'} stopColor={'rgb(66, 194, 244)'} />
-				</LinearGradient>
-			</Defs>
-		);
-	
 		return (
 			<View
-				style={{
-				alignSelf: 'flex-start',
+			style={{
+				alignSelf: 'center',
 				backgroundColor: 'aliceblue',
-				height: 'auto',
-				width: '100%',
+				height: '100%',
+			    width: '100%',
 				padding: 15,
+				margin:'auto',
 				flexWrap: 'wrap',
 				flexDirection: 'row'
 			}}
 			>
+			<PriceWidget color='red' text='Western Hub - RTLMP' price='35.84'/>
+			<PriceWidget color='green' text='Western Hub - DALMP' price='43.63'/>
 		    <PieChartWidget />
 			<LineChartWidget />
 			<BarChartWidget />
-			<PriceWidget />
 			</View>
 	);
 }
@@ -117,26 +79,6 @@ function SettingsScreen({ navigation }) {
 				}}
 			/>
 		</View>
-	);
-}
-
-const HomeStack = createNativeStackNavigator();
-
-function HomeStackScreen() {
-	return (
-		<HomeStack.Navigator>
-			<HomeStack.Screen name="Home" component={HomeScreen} />
-		</HomeStack.Navigator>
-	);
-}
-
-const SettingsStack = createNativeStackNavigator();
-
-function SettingsStackScreen() {
-	return (
-		<SettingsStack.Navigator>
-			<SettingsStack.Screen name="Settings" component={SettingsScreen} />
-		</SettingsStack.Navigator>
 	);
 }
 
@@ -171,7 +113,7 @@ export default function App() {
             if (route.name === 'Home') {
               iconName = 'ios-information-circle'  ;
             } else if (route.name === 'Settings') {
-              iconName =  'ios-list-box';
+              iconName =  'list';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -180,8 +122,8 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={HomeStackScreen} />
-        <Tab.Screen name="Settings" component={SettingsStackScreen} />
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
 		</StateProvider>
