@@ -7,6 +7,7 @@ import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createWidget, WIDGETS } from './Factory.js';
+import Theme from './Settings/theme.js'
 
 function HomeScreen({ navigation }) {
 	const [{ theme, widgets }, dispatch] = useStateValue();
@@ -35,12 +36,11 @@ function SettingsScreen({ navigation }) {
 	console.log('theme', theme);
 	return (
 		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Button
-				title="Theme"
+			<Text>Dark Theme</Text>
+			<Theme>
 				onPress={() => {
-					dispatch({ type: 'changeTheme', value: { primary: 'blue' } });
-				}}
-			/>
+					dispatch({ type: 'theme', value: { primary: 'blue' } });
+				}}</Theme>
 		</View>
 	);
 }
@@ -82,7 +82,7 @@ export default function App() {
 							let iconName;
 
 							if (route.name === 'Home') {
-								iconName = 'ios-information-circle';
+								iconName = 'home';
 							} else if (route.name === 'Settings') {
 								iconName = 'list';
 							}
