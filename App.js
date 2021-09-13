@@ -5,32 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
-import * as scale from 'd3-scale';
-
-import Svg, {
-	Circle,
-	Ellipse,
-	G,
-	TSpan,
-	TextPath,
-	Path,
-	Polygon,
-	Polyline,
-	Line,
-	Rect,
-	Use,
-	Image,
-	Symbol,
-	Defs,
-	LinearGradient,
-	RadialGradient,
-	Stop,
-	ClipPath,
-	Pattern,
-	Mask
-} from 'react-native-svg';
-
-import { BarChart, Grid, PieChart, LineChart, XAxis } from 'react-native-svg-charts';
+import LineChartWidget from './widgets/lineChart.js';
+import PieChartWidget from './widgets/pieChart.js';
+import BarChartWidget from './widgets/barChart.js';
+import Svg, { Circle, Rect } from 'react-native-svg';
+import { BarChart, Grid } from 'react-native-svg-charts';
 
 const styles = StyleSheet.create({
 	container: {
@@ -62,48 +41,6 @@ const styles = StyleSheet.create({
 });
 
 function DetailsScreen() {
-	const data = [50, 10, 40, 95, 85];
-
-	const pieData = [
-		{
-			key: 1,
-			value: 50,
-			svg: { fill: '#600080' },
-			arc: { outerRadius: '130%', cornerRadius: 10 }
-		},
-		{
-			key: 2,
-			value: 50,
-			svg: { fill: '#9900cc' }
-		},
-		{
-			key: 3,
-			value: 40,
-			svg: { fill: '#c61aff' }
-		},
-		{
-			key: 4,
-			value: 95,
-			svg: { fill: '#d966ff' }
-		},
-		{
-			key: 5,
-			value: 35,
-			svg: { fill: '#ecb3ff' }
-		}
-	];
-
-	const lineData = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
-
-	const Gradient = () => (
-		<Defs key={'gradient'}>
-			<LinearGradient id={'gradient'} x1={'0'} y={'0%'} x2={'100%'} y2={'0%'}>
-				<Stop offset={'0%'} stopColor={'rgb(134, 65, 244)'} />
-				<Stop offset={'100%'} stopColor={'rgb(66, 194, 244)'} />
-			</LinearGradient>
-		</Defs>
-	);
-
 	return (
 		<View
 			style={{
@@ -116,46 +53,9 @@ function DetailsScreen() {
 				flexDirection: 'row'
 			}}
 		>
-			<View style={[styles.box]}>
-				<BarChart
-					style={{ flex: 1, width: '100%' }}
-					data={data}
-					horizontal={true}
-					svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-					contentInset={{ top: 10, bottom: 10 }}
-					spacing={0.2}
-					gridMin={0}
-				>
-					<Grid direction={Grid.Direction.VERTICAL} />
-				</BarChart>
-			</View>
-			<View style={[styles.box]}>
-				<PieChart style={{ flex: 1, width: '100%' }} outerRadius={'70%'} innerRadius={10} data={pieData} />
-			</View>
-			<View style={[styles.box]}>
-				<LineChart
-					style={{ flex: 1, width: '100%' }}
-					data={lineData}
-					contentInset={{ top: 20, bottom: 20 }}
-					svg={{
-						strokeWidth: 2,
-						stroke: 'url(#gradient)'
-					}}
-				>
-					<Grid />
-					<Gradient />
-				</LineChart>
-			</View>
-			<View style={[styles.box]}>
-				<BarChart style={{ flex: 1 }} data={data} gridMin={0} svg={{ fill: 'rgb(134, 65, 244)' }} />
-				<XAxis
-					style={{ marginTop: 10 }}
-					data={data}
-					scale={scale.scaleBand}
-					formatLabel={(value, index) => index}
-					labelStyle={{ color: 'black' }}
-				/>
-			</View>
+			<PieChartWidget />
+			<LineChartWidget />
+			<BarChartWidget />
 		</View>
 	);
 }
