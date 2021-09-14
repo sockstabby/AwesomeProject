@@ -23,7 +23,7 @@ const constructWidget = (id, props = {}) => {
 		case WIDGETS.LINE:
 			return <LineChartWidget key={props.key} />;
 		case WIDGETS.PRICE:
-			return <PriceWidget color={props.color} text={props.text} price={props.price} />;
+			return <PriceWidget color={props.color} text={props.text} price={props.price} time={props.time} />;
 		case WIDGETS.AREA:
 			return <AreaChartWidget />;
 	}

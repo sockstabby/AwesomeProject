@@ -6,9 +6,10 @@ import { StateProvider } from './state.js';
 import { useStateValue } from './state.js';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createWidget, WIDGETS } from './Factory.js';
+import Theme from './Settings/theme.js'
 
 function HomeScreen({ navigation }) {
-	const [{ theme, widgets }, dispatch] = useStateValue();
+	const [{ darkThemeEnabled, widgets }, dispatch] = useStateValue();
 	const activeWidgets = widgets.filter(i => i.enabled);
 	const widgys = activeWidgets.map((item, index) => createWidget(item.type, index, item.props));
 
@@ -16,7 +17,7 @@ function HomeScreen({ navigation }) {
 		<View
 			style={{
 				alignSelf: 'center',
-				backgroundColor: 'aliceblue',
+				backgroundColor: darkThemeEnabled === true ? "#3e3e3e" : 'aliceblue',
 				height: '100%',
 				width: '100%',
 				padding: 15,
@@ -30,16 +31,16 @@ function HomeScreen({ navigation }) {
 }
 
 function SettingsScreen({ navigation }) {
-	const [{ theme }, dispatch] = useStateValue();
-	console.log('theme', theme);
+	const [{ darkThemeEnabled }, dispatch] = useStateValue();
 	return (
-		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-			<Button
-				title="Theme"
+		<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: darkThemeEnabled === true ? "#3e3e3e" : 'aliceblue', }}>
+			<Text style={{ color: darkThemeEnabled === true ? 'white' : 'black', fontSize: 18, alignSelf:'center' , paddingRight: '5%'}}>
+          dark theme
+        </Text>
+			<Theme>
 				onPress={() => {
-					dispatch({ type: 'changeTheme', value: { primary: 'blue' } });
-				}}
-			/>
+					dispatch({ type: 'theme', value: { primary: 'blue' } });
+				}}</Theme>
 		</View>
 	);
 }
@@ -48,17 +49,17 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
 	const initialState = {
-		theme: { primary: 'yellow' },
+		darkThemeEnabled: false,
 		widgets: [
 			{
 				type: WIDGETS.PRICE,
 				enabled: true,
-				props: { color: 'red', text: 'Western Hub - RTLMP', price: '35.84' }
+				props: { color: 'red', text: 'Western Hub - RTLMP', price: '35.84' , time:'11:55' }
 			},
 			{
 				type: WIDGETS.PRICE,
 				enabled: true,
-				props: { color: 'green', text: 'Western Hub - DALMP', price: '76.84' }
+				props: { color: 'green', text: 'Western Hub - DALMP', price: '76.84', time:'11:55'}
 			},
 			{ type: WIDGETS.BAR, enabled: true, props: {} },
 			{ type: WIDGETS.PIE, enabled: true, props: {} },
@@ -70,10 +71,10 @@ export default function App() {
 	const reducer = (state, action) => {
 		console.log(action);
 		switch (action.type) {
-			case 'changeTheme':
+			case 'darkThemeEnabledChanged':
 				return {
 					...state,
-					theme: action.value
+					darkThemeEnabled: action.value
 				};
 
 			default:
@@ -89,7 +90,7 @@ export default function App() {
 							let iconName;
 
 							if (route.name === 'Home') {
-								iconName = 'ios-information-circle';
+								iconName = 'home';
 							} else if (route.name === 'Settings') {
 								iconName = 'list';
 							}
