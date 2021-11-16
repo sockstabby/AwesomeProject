@@ -7,9 +7,11 @@ const styles = StyleSheet.create({
 	box: {
 		width: '48%',
 		height: 170,
-		padding: 15,
-		borderColor: 'black',
-		borderWidth: 2,
+		paddingTop: 25,
+		paddingLeft: 16,
+		paddingRight: 16,
+		borderColor: 'gray',
+		borderWidth: 1,
 		margin: 1
 	}
 });
@@ -19,7 +21,7 @@ const BarChartWidget = () => {
 
 	return (
 		<View style={[styles.box]}>
-			<BarChart style={{ flex: 1 }} data={data} gridMin={0} svg={{ fill: 'rgb(134, 65, 244)' }} />
+			<BarChart style={{ flex: 1 }} data={data} gridMin={0} svg={{ fill: 'rgb(1, 65, 244)' }} />
 			<XAxis
 				style={{ marginTop: 10 }}
 				data={data}

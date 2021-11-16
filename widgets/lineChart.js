@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
 		width: '48%',
 		height: 170,
 		padding: 15,
-		borderColor: 'black',
-		borderWidth: 2,
+		borderColor: 'gray',
+		borderWidth: 1,
 		margin: 1
 	},
 	sectionHeader: {
